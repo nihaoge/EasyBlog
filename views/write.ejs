@@ -3,16 +3,25 @@
 <head>
   <title>写文章</title>
   <%- include head %>
-
 </head>
 <body>
 
 
 <div class="article">
 	<form action="/articles/write" method="post">
-		<input type="text" name="title" placeholder="请输入文章标题" value="">
-		<textarea name="content" class="xheditor"></textarea>
-		<input type="submit" value="发布">
+
+    <%# POST请求不能使用 query字符串的方式传值 %>
+    <%# 我们使用 input 隐藏域传值 %>
+    <input type="hidden" name="username" value="<%= doc.username %>">
+    <input type="hidden" name="id" value="<%= doc._id %>">
+
+		<input type="text" name="title" placeholder="请输入文章标题" value="<%=doc.title%>">
+		<textarea name="content" class="xheditor"><%- doc.content %></textarea>
+    <% if (doc._id) { %>
+      <input type="submit" value="修改">
+    <% } else { %>
+      <input type="submit" value="发布">
+    <% } %>
 	</form>
 </div>
 

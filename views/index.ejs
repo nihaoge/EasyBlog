@@ -11,11 +11,11 @@
         <div class="row">
           <span><%= (idx+1) %></span>
           <span><%= ele.username %></span>
-          <span><%= ele.title %></span>
+          <span><a href="/detail?id=<%= ele._id %>"><%= ele.title %></a></span>
           <span><%= ele.createTimeZH %></span>
           <span>
-            <a href="">编辑</a>
-            <a href="">删除</a>
+            <a href="/write?id=<%= ele._id %>">编辑</a>
+            <a href="/articles/delete?id=<%= ele._id %>">删除</a>
           </span>
         </div>
       <% }) %>

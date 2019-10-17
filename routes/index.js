@@ -33,34 +33,69 @@ router.get('/', function(req, res, next) {
   }).catch((err)=>{
     res.redirect('/')
   })
-
-
 });
+
 
 // 注册页路由
-router.get("/regist",function(req,res,next) {
-  res.render('regist',{});
-  
-})
+router.get('/regist', function(req, res, next) {
+  res.render('regist', {});
+});
 
-//登入页路由
-router.get("/login",function(req,res,next) {
-  res.render('login',{});
-  
-})
+// 登录页路由
+router.get('/login', function(req, res, next) {
+  res.render('login', {});
+});
 
-//帖子路由
+// 写文章路由
 router.get('/write', function(req, res, next) {
-  res.render('write', {});
+  var id = req.query.id
+  if (id) {
+    // 编辑
+    id = new Object(id)
+    // 用_id查询
+    articleModel.findById(id).then((doc)=>{
+      // res.send({data: docs})
+      // doc.createTimeZH = moment(doc.createTime).format("YYYY-MM-DD HH:mm:ss")
+      res.render('write', {doc: doc})
+    }).catch(err=>{
+      // res.send(err)
+      res.redirect('/')
+    })
+  } else {
+    // 新增
+    var doc = {
+      _id: '',
+      username: '',
+      title: '',
+      content: ''
+    }
+    res.render('write', {doc: doc});
+  }
+
 });
 
-//详情路由
+// 详情页路由
 router.get('/detail', function(req, res, next) {
-  res.render('datail', {});
+  // var time = parseInt(req.query.time)
+  var id = new Object(req.query.id)
+  console.log(id)
+  console.log(req.query)
+
+  // 用_id查询
+  articleModel.findById(id).then((doc)=>{
+    // res.send({data: docs})
+    doc.createTimeZH = moment(doc.createTime).format("YYYY-MM-DD HH:mm:ss")
+    res.render('detail', {doc: doc})
+  }).catch(err=>{
+    res.send(err)
+  })
+
+  // 用时间戳查询
+  // articleModel.find({createTime: parseInt(req.query.id)}).then((doc)=>{
+  //   res.send({data: doc})
+  // }).catch(err=>{
+  //   res.send(err)
+  // })
 });
-
-
-
-
 
 module.exports = router;
