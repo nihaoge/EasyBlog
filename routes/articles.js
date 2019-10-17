@@ -21,7 +21,7 @@ router.post('/write', (req, res, next)=>{
     })
   } else {
     // 新增文章
-    let username = 'geekxia'
+    let username = 'zhh'
     // 插入数据库
     articleModel.insertMany({title, content, createTime, username}).then((data)=>{
       res.redirect('/')

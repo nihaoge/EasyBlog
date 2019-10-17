@@ -50,6 +50,9 @@ router.post('/login',(req,res,next)=>{
   userModel.find({username,password}).then((docs)=>{
 if(docs.length>0){
   // res.send('登入成功')
+  //登入成功后在服务端使用session记录用户信息
+  req.session.username = username
+  req.session.isLogin = true
   res.redirect('/')
 }else{
  //res.send('用户名不存在)
