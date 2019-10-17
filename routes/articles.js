@@ -10,6 +10,8 @@ var fs = require('fs')
 router.post('/write', (req, res, next)=>{
   let { title, content, username, id } = req.body
   let createTime = Date.now()
+
+
   if (id) {
     // 修改文章
     id = new Object(id)  // 把字符串转化成Object对象
@@ -21,7 +23,8 @@ router.post('/write', (req, res, next)=>{
     })
   } else {
     // 新增文章
-    let username = 'zhh'
+      //写文章用户名
+    let username = req.session.username
     // 插入数据库
     articleModel.insertMany({title, content, createTime, username}).then((data)=>{
       res.redirect('/')

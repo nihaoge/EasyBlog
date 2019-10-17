@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
   // 数据类型，要求是int
   let page = parseInt(req.query.page || 1)
   let size = parseInt(req.query.size || 2)
+  let username = req.session.username
 
   // 第一步：查询文章总数和总页数
   articleModel.find().count().then((total)=>{
@@ -26,7 +27,7 @@ router.get('/', function(req, res, next) {
         // 添加一个新的字段，来表示格式化的时间字段
         arr[i].createTimeZH = moment(arr[i].createTime).format('YYYY-MM-DD HH:mm:ss')
       }
-      res.render('index', { data: {list: arr, total: pages} });
+      res.render('index', { data: {list: arr, total: pages,username:username} });
     }).catch((err)=>{
       res.redirect('/')
     })

@@ -66,10 +66,10 @@ a {
 .bar a:hover {
   font-weight: bold;
 }
-.bar>span {
+/* .bar>span {
   animation: user 4s linear infinite;
   display: inline-block;
-}
+} */
 @keyframes user {
   from {transform: rotate(0);}
   to { transform: rotate(360deg);}
