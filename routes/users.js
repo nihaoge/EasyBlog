@@ -63,6 +63,12 @@ if(docs.length>0){
   })
 
 })
-
+//退出登入
+router.get('/logout',(req,res,next)=>{
+req.session.username = null
+req.session.isLogin = false
+//req.session.destroy()
+res.redirect('/login')
+})
 
 module.exports = router;
